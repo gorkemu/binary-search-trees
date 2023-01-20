@@ -92,19 +92,17 @@ class Tree {
 
     levelOrder(callback) {
         const queue = [this.root];
-        const finalList = [];
+        let levelOrderList = [];
         while (queue.length > 0) {
-            let levelList = [];
             for (let i = 0; i < queue.length; i++) {
                 const node = queue.shift();
-                levelList.push(node.data);
+                levelOrderList.push(node.data);
                 if (node.left) queue.push(node.left);
                 if (node.right) queue.push(node.right);
                 if (callback) callback(node);
             }
-            finalList.push(...levelList);
         }
-        if (!callback) return finalList;
+        if (!callback) return levelOrderList;
     }
 }
 
@@ -118,8 +116,8 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
     }
 }
 
-exampleArr = [5, 6, 72, 4, 49, 55, 56, 49, 49, 49, 49];
-newTree = new Tree(exampleArr);
+const exampleArr = [5, 6, 72, 4, 49, 55, 56, 49, 49, 49, 49];
+const newTree = new Tree(exampleArr);
 newTree.insert(100);
 newTree.delete(55);
 newTree.delete(5);
@@ -127,3 +125,4 @@ newTree.find(100);
 newTree.insert(33);
 prettyPrint(newTree.root);
 console.log(newTree.levelOrder());
+
