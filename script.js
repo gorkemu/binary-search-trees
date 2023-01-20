@@ -104,6 +104,60 @@ class Tree {
         }
         if (!callback) return levelOrderList;
     }
+
+    preorder(callback, node = this.root, preorderList = []) {
+        if (node == null) return;
+        callback ? callback(node) : preorderList.push(node.data);
+        this.preorder(callback, node.left, preorderList);
+        this.preorder(callback, node.right, preorderList);
+        return preorderList;
+    }
+
+    inorder(callback, node = this.root, inorderList = []) {
+        if (node == null) return;
+        this.inorder(callback, node.left, inorderList);
+        callback ? callback(node) : inorderList.push(node.data);
+        this.inorder(callback, node.right, inorderList);
+        return inorderList;
+    }
+
+    postorder(callback, node = this.root, postorderList = []) {
+        if (node == null) return;
+        this.postorder(callback, node.left, postorderList);
+        this.postorder(callback, node.right, postorderList);
+        callback ? callback(node) : postorderList.push(node.data);
+        return postorderList;
+    }
+
+    height(node = this.root) {
+        if (node == null) return 0;
+        const leftHeight = this.height(node.left);
+        const rightHeight = this.height(node.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    depth(nodeData, node = this.root, counter = 0) {
+        if (node == null) return;
+        if (nodeData === node.data) return counter;
+
+        if (nodeData < node.data) {
+            return this.depth(nodeData, node.left, counter + 1);
+        } else {
+            return this.depth(nodeData, node.right, counter + 1);
+        }
+    }
+
+    isBalanced(node = this.root) {
+        if (node == null) return true;
+        const leftHeight = this.height(node.left);
+        const rightHeight = this.height(node.right);
+
+
+        if (Math.abs(leftHeight - rightHeight) < 2) {
+            if (this.isBalanced(node.left) && this.isBalanced(node.right)) return true;
+        }
+        return false;
+    }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -123,6 +177,21 @@ newTree.delete(55);
 newTree.delete(5);
 newTree.find(100);
 newTree.insert(33);
+newTree.insert(88);
+newTree.insert(52);
+newTree.insert(3);
+newTree.insert(2);
+newTree.insert(7);
+newTree.insert(30);
+newTree.insert(37);
 prettyPrint(newTree.root);
 console.log(newTree.levelOrder());
+console.log(newTree.preorder());
+console.log(newTree.inorder());
+console.log(newTree.postorder());
+console.log(newTree.height());
+console.log(newTree.height(newTree.find(7)));
+console.log(newTree.depth(49));
+console.log(newTree.depth(88));
+console.log(newTree.isBalanced());
 
