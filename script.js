@@ -89,6 +89,23 @@ class Tree {
             return this.find(value, node.right);
         }
     }
+
+    levelOrder(callback) {
+        const queue = [this.root];
+        const finalList = [];
+        while (queue.length > 0) {
+            let levelList = [];
+            for (let i = 0; i < queue.length; i++) {
+                const node = queue.shift();
+                levelList.push(node.data);
+                if (node.left) queue.push(node.left);
+                if (node.right) queue.push(node.right);
+                if (callback) callback(node);
+            }
+            finalList.push(...levelList);
+        }
+        if (!callback) return finalList;
+    }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -107,4 +124,6 @@ newTree.insert(100);
 newTree.delete(55);
 newTree.delete(5);
 newTree.find(100);
+newTree.insert(33);
 prettyPrint(newTree.root);
+console.log(newTree.levelOrder());
