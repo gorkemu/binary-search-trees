@@ -175,30 +175,26 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
     }
 }
 
-const exampleArr = [5, 6, 72, 4, 49, 55, 56, 49, 49, 49, 49];
-const newTree = new Tree(exampleArr);
+const exampleArr = (size) => {
+    return Array.from({ length: size }, () => Math.floor(Math.random() * 100));
+}
+const newTree = new Tree(exampleArr(30));
+prettyPrint(newTree.root);
+console.log(newTree.isBalanced());
+console.log(newTree.levelOrder());
+console.log(newTree.preorder());
+console.log(newTree.inorder());
+console.log(newTree.postorder());
 newTree.insert(100);
-newTree.delete(55);
-newTree.delete(5);
-newTree.find(100);
-newTree.insert(33);
-newTree.insert(88);
-newTree.insert(52);
-newTree.insert(3);
-newTree.insert(2);
-newTree.insert(7);
-newTree.insert(30);
-newTree.insert(37);
+newTree.insert(102);
+newTree.insert(105);
+newTree.insert(107);
+prettyPrint(newTree.root);
+console.log(newTree.isBalanced());
+newTree.rebalance();
+console.log(newTree.isBalanced());
 prettyPrint(newTree.root);
 console.log(newTree.levelOrder());
 console.log(newTree.preorder());
 console.log(newTree.inorder());
 console.log(newTree.postorder());
-console.log(newTree.height());
-console.log(newTree.height(newTree.find(7)));
-console.log(newTree.depth(49));
-console.log(newTree.depth(88));
-console.log(newTree.isBalanced());
-newTree.rebalance();
-prettyPrint(newTree.root);
-
