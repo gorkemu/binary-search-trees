@@ -158,6 +158,11 @@ class Tree {
         }
         return false;
     }
+
+    rebalance() {
+        const newArrayInOrder = this.inorder();
+        this.root= this.buildTree(newArrayInOrder, 0, newArrayInOrder.length - 1);
+    }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -194,4 +199,6 @@ console.log(newTree.height(newTree.find(7)));
 console.log(newTree.depth(49));
 console.log(newTree.depth(88));
 console.log(newTree.isBalanced());
+newTree.rebalance();
+prettyPrint(newTree.root);
 
